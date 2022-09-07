@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do Lists</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/css/emoji.min.css"
+        integrity="sha512-g85Z5r0tA1tvV9xX6Ox6ZLhJPkX1k0diGsJcVm56Zd++P69y82MJ0qG6BAMeKfHrDWE+0DoFl7TUqEha63u5GA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- <link href="lib/css/emoji.css" rel="stylesheet"> -->
+
+</head>
+
+<body>
+    <!-- <i class="fa-sharp fa-solid fa-trash"></i> -->
+    <div class="container-fluid" id="app">
+        <div class="col-md-6 offset-md-3 mt-5">
+            <div class="row">
+                <div class="col-md-10 ">
+                    <p class="lead emoji-picker-container">
+
+                        <input type="text" class="form-control" v-model="todo" name="todo" id="todo"
+                            placeholder="Add To Do List" data-emojiable="true" required>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-outline-success" @click="addList()" type="button"><i
+                            class="fa-solid fa-circle-plus"></i></button>
+                </div>
+            </div>
+
+            <ul class="list-group mt-5 mr-5">
+                <li class="list-group-item" v-for="(value,index) in todos" :class="{ 'checked' : value.status }">{{
+                    value.text }}
+                    <span class="float-right"><input type="checkbox" name="check" id="check" @click="edit(index)">
+                        &nbsp;&nbsp;&nbsp;<span id="delete" @click="removeList(index)"><i
+                                class="fa-solid fa-trash-can"></i></span></span>
+
+                </li>
+            </ul>
+
+
+        </div>
+    </div>
+
+    <img src="./img/image_one.svg" alt="" srcset="" width="100%" height="100%">
+
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        -->
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/config.min.js"
+        integrity="sha512-byA8FwGXZ9uZ/S17exCzIxYz9obk57h608OIbDkDpGzO/IfU1mhQoihqLW+IK19J/gBT/inpG2ohYZCGxuO4VA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/util.min.js"
+        integrity="sha512-rTVSXeGNtYZ5y59UtVTHvenNsJ6xkNiaft0eM38EjZBMDPmVkMsxpmDLYZ1y0DJQ5F9lm3a8yQMMw2HIXyEOeQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/jquery.emojiarea.min.js"
+        integrity="sha512-mGa/ehqlsnXVGkJJhvP0t1+UFDqm8FtZHkJdDUhMbircdEe+unkimR2UL7V7uRFe9Yf/kul+naEh65I9p43R5w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/emoji-picker/1.1.5/js/emoji-picker.min.js"
+        integrity="sha512-EDnYyP0SRH/j5K7bYQlIQCwjm8dQtwtsE+Xt0Oyo9g2qEPDlwE+1fbvKqXuCoMfRR/9zsjSBOFDO6Urjefo28w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script src="lib/js/config.min.js"></script>
+    <script src="lib/js/util.min.js"></script>
+    <script src="lib/js/jquery.emojiarea.min.js"></script>
+    <script src="lib/js/emoji-picker.min.js"></script> -->
+
+    <script>
+        $(function () {
+            // Initializes and creates emoji set from sprite sheet
+            window.emojiPicker = new EmojiPicker({
+                emojiable_selector: '[data-emojiable=true]',
+                assetsPath: './img/',
+                popupButtonClasses: 'fa fa-smile-o' // far fa-smile if you're using FontAwesome 5
+            });
+            // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+            // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+            // It can be called as many times as necessary; previously converted input fields will not be converted again
+            window.emojiPicker.discover();
+        });
+    </script>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                todo: "",
+                todos: [
+                    // { "text": "Eating", "status": false },
+                    // { "text": "Running", "status": false },
+                    // { "text": "Dancing", "status": false },
+
+                ],
+            },
+            methods: {
+                addList: function () {
+                    if (isNaN(this.todo)) {
+                        this.todos.push({ "text": this.todo, "status": false });
+                        this.todo = null;
+                    }
+
+                },
+                removeList: function (index) {
+                    this.todos.splice(index, 1);
+                },
+                edit: function (index) {
+                    console.log(this.todos[index].text);
+                    if (this.todos[index].status == false) {
+                        this.todos[index].status = true;
+
+                    } else {
+                        this.todos[index].status = false;
+
+                    }
+                    console.log(this.todos[index]);
+
+                }
+            },
+        });
+    </script>
+</body>
+
+
+</html>
